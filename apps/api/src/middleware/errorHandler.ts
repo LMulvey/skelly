@@ -7,6 +7,7 @@ export const errorHandler: ErrorRequestHandler = (
 	response,
 	_next,
 ) => {
+	// TODO: add observability here like Sentry, etc to capture errors.
 	console.error(error);
 
 	response.status(500).json(

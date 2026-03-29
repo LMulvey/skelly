@@ -27,12 +27,12 @@ llmRouter.post("/stream", async (request, response) => {
 	}
 
 	if (!process.env.AI_GATEWAY_API_KEY) {
-		response.status(500).json({
-			...responseError({
+		response.status(500).json(
+			responseError({
 				code: "SERVER_ERROR",
 				message: "AI_GATEWAY_API_KEY is not configured",
 			}),
-		});
+		);
 		return;
 	}
 
