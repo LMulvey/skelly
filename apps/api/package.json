@@ -14,7 +14,9 @@
 		"@prisma/client": "^7.0.0",
 		"@repo/db": "workspace:*",
 		"@repo/schema": "workspace:*",
+		"ai": "^6.0.141",
 		"cors": "^2.8.5",
+		"dotenv": "catalog:",
 		"express": "^5.1.0",
 		"zod": "catalog:"
 	},

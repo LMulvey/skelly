@@ -30,6 +30,18 @@ Express API service for this monorepo.
 - `POST /items` — create item (`{ "name": string }`)
 - `PUT /items/:id` — update item (`{ "name": string }`)
 - `DELETE /items/:id` — delete item
+- `POST /llm/stream` — stream model text response (`text/plain` chunks)
+
+### `POST /llm/stream` request body
+
+```json
+{
+	"prompt": "Explain vector databases in simple terms"
+}
+```
+
+- `prompt` is required.
+- Model/settings are configured server-side in the route and are not user-configurable.
 
 ## Local development
 
@@ -38,6 +50,7 @@ From repo root:
 ```bash
 pnpm install
 cp packages/db/.env.example packages/db/.env
+cp apps/api/.env.example apps/api/.env
 pnpm --filter @repo/db start
 pnpm --filter @repo/db migrate:dev
 pnpm --filter api dev
@@ -47,3 +60,5 @@ pnpm --filter api dev
 
 - Validation failures return structured error payloads derived from `@repo/schema`.
 - Not-found updates/deletes are normalized to `404` responses.
+- `/llm/stream` requires `AI_GATEWAY_API_KEY` in `apps/api/.env`.
+- Streaming response is plain text chunks (suitable for `fetch` stream readers on the client).

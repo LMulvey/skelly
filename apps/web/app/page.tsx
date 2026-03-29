@@ -2,7 +2,9 @@
 
 import { Button } from "@repo/ui/button";
 import Link from "next/link";
+import { type FormEvent, useState } from "react";
 import { useItems } from "./hooks/useItems";
+import { useLlmStream } from "./hooks/useLlmStream";
 import styles from "./page.module.css";
 
 const LoadingSkeleton = () => {
@@ -24,8 +26,28 @@ const LoadingSkeleton = () => {
 };
 
 export default function Home() {
+	const [llmPrompt, setLlmPrompt] = useState("");
 	const { items, isLoading, error, deletingId, deleteItem, loadItems } =
 		useItems();
+	const {
+		isStreaming,
+		error: llmError,
+		responseText,
+		streamPrompt,
+		stopStreaming,
+	} = useLlmStream();
+
+	const handleLlmSubmit = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+
+		const trimmedPrompt = llmPrompt.trim();
+
+		if (!trimmedPrompt) {
+			return;
+		}
+
+		await streamPrompt(trimmedPrompt);
+	};
 
 	return (
 		<div className={styles.page}>
@@ -51,6 +73,45 @@ export default function Home() {
 				{!isLoading && items.length === 0 ? (
 					<p className={styles.empty}>No items yet. Create your first item.</p>
 				) : null}
+
+				<section className={styles.llmSection}>
+					<h2 className={styles.llmTitle}>Ask AI</h2>
+					<form
+						className={styles.llmForm}
+						onSubmit={(event) => void handleLlmSubmit(event)}
+					>
+						<textarea
+							className={styles.llmTextarea}
+							value={llmPrompt}
+							onChange={(event) => setLlmPrompt(event.target.value)}
+							placeholder="Enter a prompt"
+							disabled={isStreaming}
+						/>
+						<div className={styles.llmActions}>
+							<Button
+								type="submit"
+								disabled={isStreaming || llmPrompt.trim().length === 0}
+							>
+								{isStreaming ? "Streaming..." : "Send prompt"}
+							</Button>
+							{isStreaming ? (
+								<Button
+									type="button"
+									variant="secondary"
+									onClick={stopStreaming}
+								>
+									Stop
+								</Button>
+							) : null}
+						</div>
+					</form>
+
+					{llmError ? <p className={styles.llmError}>{llmError}</p> : null}
+
+					<pre className={styles.llmOutput}>
+						{responseText || "Response will stream here..."}
+					</pre>
+				</section>
 
 				<ul className={styles.itemList}>
 					{items.map((item) => (

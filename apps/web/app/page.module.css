@@ -40,6 +40,59 @@
 	opacity: 0.8;
 }
 
+.llmSection {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 14px;
+	border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+	border-radius: 12px;
+}
+
+.llmTitle {
+	font-size: 20px;
+	line-height: 1.2;
+}
+
+.llmForm {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.llmTextarea {
+	min-height: 90px;
+	padding: 10px;
+	font: inherit;
+	color: inherit;
+	background: transparent;
+	border: 1px solid color-mix(in srgb, var(--foreground) 25%, transparent);
+	border-radius: 10px;
+	resize: vertical;
+}
+
+.llmActions {
+	display: flex;
+	gap: 8px;
+}
+
+.llmError {
+	color: var(--destructive);
+	font-size: 14px;
+}
+
+.llmOutput {
+	min-height: 120px;
+	max-height: 280px;
+	padding: 10px;
+	margin: 0;
+	white-space: pre-wrap;
+	word-break: break-word;
+	overflow: auto;
+	border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+	border-radius: 10px;
+}
+
 .itemList {
 	list-style: none;
 	display: flex;
