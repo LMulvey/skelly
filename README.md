@@ -10,6 +10,14 @@ A pnpm + Turborepo scaffold for building a small full-stack TypeScript app with:
 
 ---
 
+To use, run:
+
+```
+pnpm dlx degit lmulvey/skelly my-app
+```
+
+---
+
 ## Why this scaffold exists
 
 This setup is optimized for quickly building product ideas while keeping boundaries clean:
