@@ -13,9 +13,9 @@
 	},
 	"scripts": {
 		"build:styles": "tailwindcss -i ./src/styles/globals.css -o ./dist/index.css",
-		"build:components": "tsup src/button.tsx src/input.tsx src/utils.ts --format esm --target es2022 --out-dir dist --dts --clean",
+		"build:components": "tsup src/**/*.ts src/**/*.tsx --format esm --target es2022 --out-dir dist --dts --clean",
 		"dev:styles": "tailwindcss -i ./src/styles/globals.css -o ./dist/index.css --watch",
-		"dev:components": "tsup src/button.tsx src/input.tsx src/utils.ts --format esm --target es2022 --out-dir dist --dts --watch",
+		"dev:components": "tsup src/**/*.ts src/**/*.tsx --format esm --target es2022 --out-dir dist --dts --watch",
 		"lint": "biome check --write",
 		"check-types": "tsc --noEmit"
 	},
